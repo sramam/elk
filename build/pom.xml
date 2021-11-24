@@ -228,6 +228,42 @@
     <pluginManagement>
       <plugins>
 
+        <!-- jsweet to create typescript/javascript conversions -->
+        <!-- http://www.jsweet.org/getting-started/ -->
+        <plugin>
+          <groupId>org.jsweet.v3</groupId>
+          <artifactId>jsweet-maven-plugin</artifactId>
+          <version>3.0.0</version>
+          <configuration>
+            <sourceMap>true</sourceMap>
+            <outDir>jsweet/build</outDir>
+            <tsOut>jsweet/src</tsOut>
+            <declaration>true</declaration>
+            <candiesJsOut>jsweet/src/candies</candiesJsOut>
+
+            <targetVersion>ES6</targetVersion>
+            <!-- bundle your JS automatically -->
+            <bundle>true</bundle>
+            <!-- end of bundle configuration -->
+          </configuration>
+          <executions>
+            <execution>
+              <id>generate-js</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>jsweet</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>clean</id>
+              <phase>clean</phase>
+              <goals>
+                <goal>clean</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
         <!--  Compile MELK files to options classes -->
         <plugin>
           <groupId>org.eclipse.xtext</groupId>
@@ -391,6 +427,17 @@
 
   <!-- Maven plugin repositories -->
   <pluginRepositories>
+    <pluginRepository>
+      <id>jsweet-plugins-release</id>
+      <name>plugins-release</name>
+      <url>https://repository.jsweet.org/artifactory/plugins-release-local</url>
+    </pluginRepository>
+    <pluginRepository>
+      <snapshots />
+      <id>jsweet-plugins-snapshots</id>
+      <name>plugins-snapshot</name>
+      <url>https://repository.jsweet.org/artifactory/plugins-snapshot-local</url>
+    </pluginRepository>
     <pluginRepository>
       <id>central</id>
       <name>Maven Plugin Repository</name>
